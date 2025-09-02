@@ -32,7 +32,9 @@ export default function EditHabitPage() {
 
         const loadHabit = async () => {
             try {
-                const res = await fetch(`/api/habits/${id}`);
+                const res = await fetch(
+                    `${process.env.NEXT_PUBLIC_API_URL}/habits/${id}`
+                );
                 if (!res.ok) throw new Error("Failed to fetch habit");
                 const habit = await res.json();
 
@@ -52,11 +54,14 @@ export default function EditHabitPage() {
         if (!id || typeof id !== "string") return;
 
         try {
-            const res = await fetch(`/api/habits/${id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
-            });
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/habits/${id}`,
+                {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data),
+                }
+            );
 
             if (!res.ok) throw new Error("Failed to update habit");
 
